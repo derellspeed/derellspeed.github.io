@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Derell Speed profile</title>
+  <desc id="desc">A stylized profile avatar with initials DS.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#1fa3ff"/>
+      <stop offset="100%" stop-color="#8a5cf6"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#bg)"/>
+  <circle cx="400" cy="330" r="180" fill="#f4f7fb" opacity="0.95"/>
+  <path d="M245 740c28-125 95-190 155-190s127 65 155 190" fill="#f4f7fb" opacity="0.95"/>
+  <text x="400" y="450" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="170" font-weight="700" fill="#111827">DS</text>
+</svg>
