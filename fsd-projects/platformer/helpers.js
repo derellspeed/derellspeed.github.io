@@ -137,7 +137,7 @@ function debug() {
   ctx.fillText("xs" + player.speedX + " x: " + player.x, 500, 200);
   ctx.fillText("ys" + player.speedY + " y: " + player.y, 500, 250);
 
-  ctx.fillStyle = "black";
+  ctx.fillStyle = "white";
   ctx.fillText("on ground " + player.onGround, 150 + player.x, player.y - 20);
   ctx.fillText("hitx" + hitDx, 150 + player.x, player.y);
   ctx.fillText("hity" + hitDy, 150 + player.x, player.y + 20);
@@ -505,7 +505,14 @@ function makeGrid() {
     }
     // add text indicating x value at top of game
     ctx.font = "125% serif";
-    ctx.fillStyle = "black";
+    ctx.fillStyle = "yellow";
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = 3;
+    ctx.strokeText(
+      i, // text
+      i - 15, // x location
+      25 // y location
+    );
     ctx.fillText(
       i, // text
       i - 15, // x location
@@ -520,6 +527,11 @@ function makeGrid() {
     }
     // add text indicating y value at left side of game
     ctx.font = "125% serif";
+    ctx.strokeText(
+      i, // text
+      10, // x location
+      i + 5 // y location
+    );
     ctx.fillText(
       i, // text
       10, // x location
