@@ -21,6 +21,10 @@
       <p class="objective">Collect the diamonds. Dodge the cannon fire.</p>
     </header>
     <div class="game-stage">
+      <div class="game-hud" aria-live="polite">
+        <div id="game-timer" class="game-timer">Time: 0.0s</div>
+        <div id="player-lives" class="player-lives" aria-label="Player lives"></div>
+      </div>
       <canvas id="canvas" width="1400" height="750"></canvas>
     </div>
     <footer class="controls" aria-label="Game controls">

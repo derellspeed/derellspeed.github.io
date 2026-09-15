@@ -35,6 +35,9 @@ let hitDy;
 let hitBoxWidth = 50 * playerScale;
 let hitBoxHeight = 105 * playerScale;
 let firstTimeSetup = true;
+let gameTimer = 0;
+const maxLives = 3;
+let playerLives = maxLives;
 
 const keyPress = {
   any: false,

@@ -76,6 +76,20 @@ h2 {
   line-height: 1.5 !important;
 }
 
+.public-domain-banner {
+  max-width: 520px;
+  margin: 0;
+  padding: 10px 14px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
+  color: #0d0d0d;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
 .primary-link {
   display: inline-flex;
   gap: 18px;

@@ -1,5 +1,7 @@
 # Bouncing Box
 
+This Bouncing Box project is dedicated to the public domain. You are free to use, remix, and share it without restriction.
+
 ### Continue Building Your Game Dev Skills: Code Your Own Animated Box Adventure
 
 **Table of Contents**
@@ -67,7 +69,6 @@ These lines pull HTML elements into JavaScript using jQuery selectors and method
 ### Step-by-Step Work Flow
 
 1. 📂 **Open your Bouncing Box project's `index.html` file** in your codespace to get started.
-
    - 🔍 Locate the file tree (the list of files and folders) in the left panel of your codespace.
    - Click the `fsd-projects` folder 📂 in your file tree to expand the list of projects.
    - Click on the `bouncing-box` folder 📂 located within the `fsd-projects` folder.
@@ -118,14 +119,12 @@ These lines pull HTML elements into JavaScript using jQuery selectors and method
 1. **🔍 Locate the `update` function declaration** (around line 82 in the index.html file)
 
 2. **Inside the function's code block** (between the { } curly braces):
-
    - Call the `moveBoxTo` function, and pass in the number `200` as an argument.:
      ```javascript
      moveBoxTo(200); // Moves box to x-position 200
      ```
 
 3. **Call moveBoxTo with different arguments**
-
    - Replace the value 200 with a different number. After changing the number, use live server to preview the changes and see the effect.
 
    - Try it out with several different numbers to see how the box moves. Some numbers you could use are `450` or `-20`. Each time you modify the number, preview your game to see how the box moves to that position.
@@ -181,11 +180,9 @@ These lines pull HTML elements into JavaScript using jQuery selectors and method
 ### Step-by-Step Instructions
 
 1. **Define the `positionX` Variable**
-
    - 🔍 Locate the section where variables are created.
      - **Hint**: Declare your variables below the comment that says `// Variable declarations below here`
    - Create a variable called `positionX` and set it to `0`. This variable will store the x-position of the box on the screen.
-
      - **Hint**: To declare a variable, use the following structure/syntax:
 
        ```javascript
@@ -195,7 +192,6 @@ These lines pull HTML elements into JavaScript using jQuery selectors and method
      - Apply this structure to create `positionX` with an initial value of `0`.
 
 2. **Update `positionX` in the `update` Function**
-
    - 🔍 Locate the `update` function declaration.
    - Inside the `update` function’s code block, add `10` to `positionX` to move the box to the right:
      - **Hint**: To increment a variable, you can use either of these methods:
@@ -251,16 +247,13 @@ These lines pull HTML elements into JavaScript using jQuery selectors and method
 ### Step-by-Step Instructions
 
 1. 🔍 **Locate the `handleBoxClick` Function Declaration**
-
    - It can be found below the `update` function.
 
 2. **Reset `positionX` to `0` in `handleBoxClick`**
-
    - Inside the `handleBoxClick` function, re-assign `positionX` to `0` to reset the box’s x-position.
    - **Reminder**: Since `positionX` was already declared earlier in your code, there’s no need to use the `var` keyword here—just reassign `positionX` directly to `0`.
 
 3. **Display Text on the Box**
-
    - Below the line where you reset `positionX`, add a call to the `changeBoxText()` function with an argument of `0`. This will display `0` on the box to represent the starting score.
 
 4. **Placeholder Value Reminder**
@@ -307,12 +300,10 @@ These lines pull HTML elements into JavaScript using jQuery selectors and method
 ### Step-by-Step Instructions
 
 1. **Create the `points` Variable**
-
    - 🔍 Locate the section where the `positionX` variable is declared.
    - Below `positionX`, create a variable called `points` and set it to `0`. This variable will store the number of times the box has been clicked.
 
 2. **Update `changeBoxText` to Use `points`**
-
    - 🔍 Locate the `changeBoxText` function call inside the `handleBoxClick` function
    - Update the `changeBoxText()` call by replacing the value `0` with the `points` variable. This way, the box will display the current score.
 
@@ -366,12 +357,10 @@ These lines pull HTML elements into JavaScript using jQuery selectors and method
 ### Step-by-Step Instructions
 
 1. **Create a `speed` Variable**
-
    - 🔍 Locate the section where the `positionX` and `points` variables are declared.
    - Below `points`, create a variable called `speed` and set it to `10`. This variable will control how fast the box moves across the screen.
 
 2. **Use `speed` to Replace the Hard-Coded Value in `update`**
-
    - 🔍 Locate the `update` function where `positionX` is increased by `10`.
    - Replace the hardcoded value `10` with the `speed` variable:
      ```javascript
@@ -430,7 +419,6 @@ These lines pull HTML elements into JavaScript using jQuery selectors and method
 1. **🔍 Locate the `update` Function**
 
 2. **Set Up an `if` Statement for the Right Boundary**
-
    - We want to stop the box from moving off the right side of the screen. Write an `if` statement that will run when `positionX`, which represents the location of the box, moves the box too far to the right.
    - **Fill in the Blank**: Add an `if` statement to check if `positionX` is greater than `boardWidth`.
      ```javascript
@@ -492,7 +480,6 @@ These lines pull HTML elements into JavaScript using jQuery selectors and method
 1. **🔍 Locate the `update` Function**
 
 2. **Set Up an `if` Statement for the Left Boundary**
-
    - **Below the first `if` statement's code block**, add a second `if` or an `else if` statement to detect when `positionX` has moved too far to the left.
    - **Fill in the Blank**: Choose the correct comparison operator that will check if `positionX` is less than `0`. Choose either example below to use as a model for this step:
      ```javascript
@@ -587,11 +574,9 @@ In this TODO, we’ll fix the `speed` bug 🐛 by calculating `speed` using a li
 1. **🔍 Locate the `handleBoxClick` Function**
 
 2. **Remove the line of code** where speed is being increased by 3.
-
    - This line will be replaced by new code added in this TODO.
 
 3. **Understand How `speed` Changes with `points`**
-
    - Here’s a table showing the values of `points` and `speed` using the formula described above:
 
    | Points (x) | Speed Calculation | Speed (y) |
@@ -601,7 +586,6 @@ In this TODO, we’ll fix the `speed` bug 🐛 by calculating `speed` using a li
    | 2          | `(3 * 2) + 10`    | 16        |
    | 3          | `(3 * 3) + 10`    | 19        |
    | 4          | `(3 * 4) + 10`    | 22        |
-
    - As `points` increases, this formula ensures that `speed` adjusts _linearly_ without additional conditions.
 
 4. **Apply the Linear Formula**
@@ -660,7 +644,6 @@ We've compiled a list of optional **bonus challenges** for you to take this proj
 ### Step-by-Step Instructions
 
 1. **Open the terminal in your codespace**
-
    - If the terminal isn’t visible, click the **Hamburger Menu > Terminal > New Terminal**.
 
 2. **Enter the following commands one by one** in the terminal, pressing enter after each command to run it:
@@ -688,4 +671,4 @@ We've compiled a list of optional **bonus challenges** for you to take this proj
 <hr>
 <br>
 
-### 🎉🎉🎉 Your bouncing box game is live on your site and you can share it with others!  🎉🎉🎉
+### 🎉🎉🎉 Your bouncing box game is live on your site and you can share it with others! 🎉🎉🎉

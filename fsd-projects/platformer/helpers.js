@@ -7,6 +7,63 @@ function registerSetup(setup) {
   setupGame = setup;
 }
 
+function updateTimer() {
+  const timerElement = document.getElementById("game-timer");
+  if (!timerElement) {
+    return;
+  }
+
+  timerElement.textContent = `Time: ${gameTimer.toFixed(1)}s`;
+}
+
+function updateLivesDisplay() {
+  const livesElement = document.getElementById("player-lives");
+  if (!livesElement) {
+    return;
+  }
+
+  const hearts = [];
+  for (let i = 0; i < maxLives; i += 1) {
+    const filled = i < playerLives;
+    hearts.push(
+      `<span class="heart ${filled ? "filled" : "empty"}">${filled ? "♥" : "♡"}</span>`,
+    );
+  }
+  livesElement.innerHTML = hearts.join("");
+}
+
+function resetPlayerPosition() {
+  player.x = 50;
+  player.y = 100;
+  player.speedX = 0;
+  player.speedY = 0;
+  player.onGround = false;
+  currentAnimationType = animationTypes.frontIdle;
+  frameIndex = 0;
+}
+
+function loseLife() {
+  if (
+    player.deadAndDeathAnimationDone ||
+    currentAnimationType === animationTypes.frontDeath
+  ) {
+    return;
+  }
+
+  playerLives -= 1;
+  updateLivesDisplay();
+
+  if (playerLives <= 0) {
+    currentAnimationType = animationTypes.frontDeath;
+    frameIndex = 0;
+    player.deadAndDeathAnimationDone = true;
+    return;
+  }
+
+  currentAnimationType = animationTypes.frontDeath;
+  frameIndex = 0;
+}
+
 function main() {
   ctx.clearRect(0, 0, 1400, 750); //erase the screen so you can draw everything in it's most current position
 
@@ -15,14 +72,22 @@ function main() {
   }
 
   if (player.deadAndDeathAnimationDone) {
+    updateTimer();
+    updateLivesDisplay();
     deathOfPlayer();
     return;
   }
 
   if (player.winConditionMet) {
+    updateTimer();
+    updateLivesDisplay();
     winGame();
     return;
   }
+
+  gameTimer += 1 / frameRate;
+  updateTimer();
+  updateLivesDisplay();
 
   drawPlatforms();
   drawFakePlatforms();
@@ -96,7 +161,11 @@ function changeAnimationType() {
     if (
       frameIndex >= animationDetails[currentAnimationType].coordinates.length
     ) {
-      player.deadAndDeathAnimationDone = true;
+      if (playerLives <= 0) {
+        player.deadAndDeathAnimationDone = true;
+      } else {
+        resetPlayerPosition();
+      }
     }
     return;
   }
@@ -233,7 +302,7 @@ function drawRobot() {
       player.x - hitDx,
       player.y - hitDy,
       player.width,
-      player.height
+      player.height,
     );
   } else {
     //for running to the left you mirror the image
@@ -248,7 +317,7 @@ function drawRobot() {
       -player.x - player.width + hitDx,
       player.y - hitDy,
       player.width,
-      player.height
+      player.height,
     );
     ctx.restore(); //put the canvas back to normal
   }
@@ -270,7 +339,7 @@ function collision() {
         platforms[i].x,
         platforms[i].y,
         platforms[i].width,
-        platforms[i].height
+        platforms[i].height,
       );
     }
   }
@@ -364,8 +433,8 @@ function projectileCollision() {
       projectiles[i].y < player.y + hitBoxHeight &&
       projectiles[i].y + projectiles[i].height > player.y
     ) {
-      currentAnimationType = animationTypes.frontDeath;
-      frameIndex = 0;
+      loseLife();
+      return;
     }
   }
 }
@@ -381,8 +450,8 @@ function badPlatformCollision() {
       player.y < badPlatforms[i].y + badPlatforms[i].height &&
       player.y + hitBoxHeight > badPlatforms[i].y
     ) {
-      currentAnimationType = animationTypes.frontDeath;
-      frameIndex = 0;
+      loseLife();
+      return;
     }
   }
 }
@@ -393,7 +462,7 @@ function deathOfPlayer() {
     canvas.width / 4,
     canvas.height / 6,
     canvas.width / 2,
-    canvas.height / 2
+    canvas.height / 2,
   );
   ctx.fillStyle = "black";
   ctx.font = "800% serif";
@@ -401,14 +470,14 @@ function deathOfPlayer() {
     "You are dead",
     canvas.width / 4,
     canvas.height / 6 + canvas.height / 5,
-    (canvas.width / 16) * 14
+    (canvas.width / 16) * 14,
   );
   ctx.font = "500% serif";
   ctx.fillText(
     "Hit any key to restart",
     canvas.width / 4,
     canvas.height / 6 + canvas.height / 3,
-    (canvas.width / 16) * 14
+    (canvas.width / 16) * 14,
   );
   if (keyPress.any) {
     keyPress.any = false;
@@ -511,12 +580,12 @@ function makeGrid() {
     ctx.strokeText(
       i, // text
       i - 15, // x location
-      25 // y location
+      25, // y location
     );
     ctx.fillText(
       i, // text
       i - 15, // x location
-      25 // y location
+      25, // y location
     );
   }
 
@@ -530,12 +599,12 @@ function makeGrid() {
     ctx.strokeText(
       i, // text
       10, // x location
-      i + 5 // y location
+      i + 5, // y location
     );
     ctx.fillText(
       i, // text
       10, // x location
-      i + 5 // y location
+      i + 5, // y location
     );
   }
   gridMade = true;
@@ -548,7 +617,7 @@ function drawProjectiles() {
       projectiles[i].x,
       projectiles[i].y,
       projectiles[i].width,
-      projectiles[i].height
+      projectiles[i].height,
     );
     projectiles[i].x = projectiles[i].x + projectiles[i].speedX;
     projectiles[i].y = projectiles[i].y + projectiles[i].speedY;
@@ -564,7 +633,7 @@ function drawCannons() {
         cannons[i].x,
         cannons[i].y,
         cannons[i].projectileWidth,
-        cannons[i].projectileHeight
+        cannons[i].projectileHeight,
       );
     } else {
       cannons[i].projectileCountdown = cannons[i].projectileCountdown + 1;
@@ -605,7 +674,7 @@ function drawCollectables() {
         collectables[i].x,
         collectables[i].y,
         collectableWidth,
-        collectableHeight
+        collectableHeight,
       );
     } else {
       //draw the icons at the top if collected
@@ -618,7 +687,7 @@ function drawCollectables() {
         200 + 100 * i,
         10,
         collectableWidth,
-        collectableHeight
+        collectableHeight,
       );
       ctx.globalAlpha = 1;
     }
@@ -691,7 +760,7 @@ function winGame() {
     canvas.width / 4,
     canvas.height / 6,
     canvas.width / 2,
-    canvas.height / 2
+    canvas.height / 2,
   );
   ctx.fillStyle = "white";
   ctx.font = "800% serif";
@@ -699,14 +768,14 @@ function winGame() {
     "You Win!",
     canvas.width / 4,
     canvas.height / 6 + canvas.height / 5,
-    (canvas.width / 16) * 14
+    (canvas.width / 16) * 14,
   );
   ctx.font = "500% serif";
   ctx.fillText(
     "Hit any key to restart",
     canvas.width / 4,
     canvas.height / 6 + canvas.height / 3,
-    (canvas.width / 16) * 14
+    (canvas.width / 16) * 14,
   );
   if (keyPress.any) {
     keyPress.any = false;
@@ -725,7 +794,7 @@ function createPlatform(
   speedX = 1,
   minY = null,
   maxY = null,
-  speedY = 1
+  speedY = 1,
 ) {
   platforms.push({
     x,
@@ -772,7 +841,7 @@ function createCannon(
   height = defaultProjectileHeight,
   minPos = null,
   maxPos = null,
-  speed = 1
+  speed = 1,
 ) {
   if (wallLocation === "top") {
     cannons.push({
@@ -853,7 +922,7 @@ function createCollectable(
   bounce = 1,
   minX = null,
   maxX = null,
-  speed = 1
+  speed = 1,
 ) {
   if (type !== "") {
     var image = document.createElement("img");
