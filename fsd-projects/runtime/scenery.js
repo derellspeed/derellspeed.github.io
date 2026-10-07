@@ -14,7 +14,12 @@ const scenery = {
   building: {
     imageUrl: "images/backgrounds/building.png",
     loopWidth: 1400,
-    instances: [{ x: 400, width: 100, height: 300, speedX: -2 }],
+    instances: [
+      { x: 400, width: 100, height: 300, speedX: -5 },
+      { x: 900, width: 150, height: 350, speedX: -5 },
+      { x:1400, width: 200, height: 400, speedX: -5 },
+      { x:1900, width: 250, height: 450, speedX: -5 },
+    ],
   },
   lamp: {
     imageUrl: "images/backgrounds/lamp.png",
